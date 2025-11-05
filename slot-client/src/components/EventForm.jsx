@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -6,8 +6,9 @@ export default function EventForm({ onCreate }) {
   const [title, setTitle] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
   e.preventDefault();
   
   if (!title || !start || !end) {
@@ -22,16 +23,24 @@ export default function EventForm({ onCreate }) {
     toast.error('End time must be after start time');
     return;
   }
+  setLoading(true);
   
-  onCreate({ 
-    title, 
-    startTime: startDate.toISOString(), 
-    endTime: endDate.toISOString() 
-  });
-  
-  setTitle(''); 
-  setStart(''); 
-  setEnd('');
+  try {  
+    await onCreate({ 
+      title, 
+      startTime: startDate.toISOString(), 
+      endTime: endDate.toISOString() 
+    });
+    
+    setTitle(''); 
+    setStart(''); 
+    setEnd('');
+    toast.success('Event created successfully!');
+  } catch (error) {
+    toast.error('Failed to create event');
+  } finally {
+    setLoading(false);
+  }
   
 };
 
@@ -54,6 +63,7 @@ export default function EventForm({ onCreate }) {
             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" 
             placeholder="Enter event title" 
             value={title} 
+            disabled={loading}
             onChange={e => setTitle(e.target.value)}
             required
           />
@@ -68,6 +78,7 @@ export default function EventForm({ onCreate }) {
               className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" 
               type="datetime-local" 
               value={start} 
+              disabled={loading}
               onChange={e => setStart(e.target.value)}
               required
             />
@@ -80,6 +91,7 @@ export default function EventForm({ onCreate }) {
               className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" 
               type="datetime-local" 
               value={end} 
+              disabled={loading}
               onChange={e => setEnd(e.target.value)}
               required
             />
@@ -87,12 +99,22 @@ export default function EventForm({ onCreate }) {
         </div>
 
         <button 
-          type='submit' 
-          className="w-full md:w-auto px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
-        >
-          <Plus/>
-          <span>Add Event</span>
-        </button>
+  type='submit'
+  disabled={loading}
+  className="w-full md:w-auto px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed" 
+>
+  {loading ? (
+    <>
+      <Loader2 className="w-5 h-5 animate-spin" />
+      <span>Creating...</span>
+    </>
+  ) : (
+    <>
+      <Plus className="w-5 h-5" />
+      <span>Add Event</span>
+    </>
+  )}
+</button>
       </div>
     </form>
   );

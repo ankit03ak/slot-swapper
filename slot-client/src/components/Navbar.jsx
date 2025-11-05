@@ -59,13 +59,13 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center space-x-3">
               <Link 
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition bg-gray-200 hover:bg-gray-300 rounded-lg"
                 to="/login"
               >
                 Login
               </Link>
               <Link 
-                className="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition shadow-sm hover:shadow-md"
+                className="px-4 py-2 bg-indigo-500 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition shadow-sm hover:shadow-md"
                 to="/signup"
               >
                 Sign Up
