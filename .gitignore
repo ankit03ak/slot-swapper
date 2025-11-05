@@ -1,0 +1,59 @@
+# =========================
+# Node.js / Express backend
+# =========================
+slot-api/node_modules/
+slot-api/.env
+slot-api/.env.local
+slot-api/.env.*.local
+slot-api/logs/
+slot-api/*.log
+slot-api/npm-debug.log*
+slot-api/yarn-debug.log*
+slot-api/yarn-error.log*
+
+# Build / Coverage
+slot-api/dist/
+slot-api/build/
+slot-api/coverage/
+
+# IDE & OS files
+slot-api/.vscode/
+slot-api/.idea/
+slot-api/.DS_Store
+
+# =========================
+# React + Vite frontend
+# =========================
+slot-client/node_modules/
+slot-client/.env
+slot-client/.env.local
+slot-client/.env.*.local
+slot-client/dist/
+slot-client/build/
+slot-client/coverage/
+slot-client/npm-debug.log*
+slot-client/yarn-debug.log*
+slot-client/yarn-error.log*
+
+# Cache files
+slot-client/.vite/
+slot-client/.eslintcache
+slot-client/.parcel-cache
+slot-client/.turbo/
+slot-client/.cache/
+
+# IDE & OS files
+slot-client/.vscode/
+slot-client/.idea/
+slot-client/.DS_Store
+
+# =========================
+# Root-level ignores
+# =========================
+.env
+.env.local
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
