@@ -35,9 +35,8 @@ export default function EventForm({ onCreate }) {
     setTitle(''); 
     setStart(''); 
     setEnd('');
-    toast.success('Event created successfully!');
   } catch (error) {
-    toast.error('Failed to create event');
+    console.error('Failed to create event');
   } finally {
     setLoading(false);
   }
