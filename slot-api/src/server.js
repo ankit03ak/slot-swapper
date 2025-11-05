@@ -15,7 +15,17 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') || '*' }));
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map(o => o.trim())
+  : ["*"];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // TEST
 // app.get('/', (req,res) => {
